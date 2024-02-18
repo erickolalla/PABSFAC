@@ -1,0 +1,41 @@
+﻿@model PABSFAC.Controllers.IndexViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <div class="row">
+        <section class="col-md-6" aria-labelledby="registrosXTitle">
+            <h2 id="registrosXTitle">Registros X</h2>
+            @if (Model.RegistrosX != null && Model.RegistrosX.Any())
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Hashtag</th>
+                            <!-- Agrega más encabezados de columna según sea necesario -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var registroX in Model.RegistrosX)
+                        {
+                            <tr>
+                                <td>@registroX.Nombre_Usuario1</td>
+                                <td>@registroX.Hashtag1</td>
+
+                                <!-- Agrega más columnas según sea necesario -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No hay registros X disponibles.</p>
+            }
+        </section>
+    </div>
+</main>
+

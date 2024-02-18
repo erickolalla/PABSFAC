@@ -1,0 +1,116 @@
+﻿@* @model Dictionary<string, int> *@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using System.Text.Json
+
+@model PABSFAC.Controllers.IndexViewModel
+
+@{
+    ViewBag.Title = "GbarrasTX";
+}
+
+<h2></h2>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hashtags Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <section class="col-md-12" aria-labelledby="hashtagsChartTitle">
+                <h2 id="hashtagsChartTitle">Diagrama de barras Hashtags de X y Tik Tok</h2>
+                <canvas id="barChart" width="800" height="400"></canvas>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Obtener los datos de hashtags del modelo
+        var hashtagsData = @Html.Raw(Json.Serialize(Model.ResgistrosTX));
+        console.log(hashtagsData);        
+        
+
+        // Extraer los hashtags y las cantidades de la lista de datos
+        var hashtags = [];
+        var cantidades = [];
+        for (var i = 0; i < hashtagsData.length; i++) {
+            hashtags.push(hashtagsData[i].hashtag1);
+            cantidades.push(parseInt(hashtagsData[i].cantidad1))
+        }                  
+
+        var colors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)'];
+
+        // Configurar los datos del gráfico de barras
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: hashtags,
+                datasets: [{
+                    label: 'Cantidad',
+                    data: cantidades,
+                    backgroundColor: colors,
+                    borderColor: colors.map(color => color.replace('0.5', '1')), // Aumentar la opacidad para los bordes
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>  
+
+</body>
+</html>
+
+
+@* <script>
+
+        src="https://cdn.jsdelivr.net/npm/chart.js">
+        <canvas id="barChart" width="400" height="400"></canvas>
+        // Obtener los datos de hashtags del modelo
+        var hashtagsData = @Html.Raw(Json.Serialize(Model));
+
+        // Extraer los hashtags y las cantidades de la lista de datos
+        var hashtags = [];
+        var cantidades = [];
+        for (var i = 0; i < hashtagsData.length; i++) {
+            hashtags.push(hashtagsData[i].Hashtag1);
+            cantidades.push(parseInt(hashtagsData[i].Cantidad1));
+        }
+
+        // Configurar los datos del gráfico de barras
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: hashtags,
+                datasets: [{
+                    label: 'Cantidad',
+                    data: cantidades,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script> *@

@@ -1,0 +1,40 @@
+﻿@model PABSFAC.Controllers.IndexViewModel
+
+@{
+    ViewBag.Title = "RegistrosT";
+}
+<main aria-labelledby="title">
+
+    <div class="row">
+        <section class="col-md-6" aria-labelledby="registrosTTitle">
+            <h2 id="registrosXTitle">Registros De Tik Tok</h2>
+            @if (Model.RegistrosT != null && Model.RegistrosT.Any())
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Autor</th>
+                            <th>Hashtag</th>
+                            <!-- Agrega más encabezados de columna según sea necesario -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var registroT in Model.RegistrosT)
+                        {
+                            <tr>
+                                <td>@registroT.Autor1</td>
+                                <td>@registroT.FirstHashtag1</td>
+
+                                <!-- Agrega más columnas según sea necesario -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No hay registros de Tik Tok disponibles.</p>
+            }
+        </section>
+    </div>
+</main>

@@ -1,0 +1,199 @@
+﻿@*@model PABSFAC.Controllers.IndexViewModel*@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using System.Text.Json
+@model Dictionary<string, int>
+
+
+@{
+    ViewBag.Title = "GcircularTX";
+}
+<main aria-labelledby="title">
+
+    @*<div class="row">
+            <section class="col-md-6" aria-labelledby="hashtagsTitle">
+                <h2 id="hashtagsTitle">Hashtags Report</h2>
+                @if (Model.ResgistrosTX != null && Model.ResgistrosTX.Any())
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Hashtag</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var registrosTX in Model.ResgistrosTX)
+                            {
+                                <tr>
+                                    <td>@registrosTX.Hashtag1</td>
+                                    <td>@registrosTX.Cantidad1</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No hay hashtags disponibles.</p>
+                }
+            </section>
+        </div>*@
+
+    @*Porgramación de vista valida de gráfico de barras*@
+    @*<meta charset="utf-8" />
+        <title>Hashtag Donut Chart</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <h1>Gráfica circular de Hashtags de X Y Tik Tok</h1>
+        <canvas id="donutChart" width="400" height="400"></canvas>
+
+        <script>
+            /* Obtén los datos de hashtags del modelo*/
+        var hashtags = @Html.Raw(Json.Encode(Model));
+
+        // Extrae las claves (hashtags) y los valores (cantidades) del diccionario
+        var labels = Object.keys(hashtags);
+        var data = Object.values(hashtags);
+
+        // Configura los datos del gráfico de dona
+        var ctx = document.getElementById('donutChart').getContext('2d');
+        var donutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cantidad',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });*@
+
+
+
+    <meta charset="utf-8" />
+    <title>Hashtag Donut Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <h1 style="display: inline-block;">Gráfica circular de Hashtags de X Y Tik Tok</h1>
+
+    <div style="display: inline-block; vertical-align: top;">
+        <canvas id="donutChart" width="800" height="800"></canvas>
+    </div>
+
+    <div style="display: inline-block; vertical-align: top;">
+        <script>
+        /* Configuración de colores */
+        var backgroundColors = [
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(153, 102, 255, 0.5)',
+        ];
+
+        var borderColors = [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+        ];
+
+        /* Obtén los datos de hashtags del modelo */
+        var hashtags = @Html.Raw(Json.Serialize(Model));
+        var labels = Object.keys(hashtags);
+        var data = Object.values(hashtags);
+
+        /* Configura los datos del gráfico de dona */
+        var ctx = document.getElementById('donutChart').getContext('2d');
+        var donutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cantidad',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+        </script>
+    </div>
+
+
+
+
+    @*/*Gráfico de barras inconcluso*/*@
+    @*var hashtags = @Html.Raw(Json.Encode(Model.Hashtags));
+        var total = @Model.Total;
+
+        // Extrae las claves (hashtags) y los valores (cantidades) del diccionario
+        var labels = Object.keys(hashtags);
+        var data = Object.values(hashtags);
+
+        // Configura los datos del gráfico de dona
+        var ctx = document.getElementById('donutChart').getContext('2d');
+        var donutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cantidad',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Mostrar el total de hashtags
+        var totalElement = document.createElement('p');
+        totalElement.textContent = 'Total de hashtags: ' + total;
+        document.body.appendChild(totalElement);*@
+
+
+
+
+    </script>
+
+</main>
